@@ -21,6 +21,9 @@
     "productName": "ClaudeSwitch",
     "files": [
       "main.js",
+      "preload.js",
+      "popup.html",
+      "prompt.html",
       "assets/**/*"
     ],
     "mac": { "category": "public.app-category.developer-tools" },

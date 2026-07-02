@@ -4,10 +4,13 @@ An optional Electron system tray companion for [`claudeswitch`](../cli). It read
 
 ## Features
 
-- Tray menu listing every saved account, with the active one checked.
-- Click an account to launch a terminal with `claude` running under that account's config.
-- "Add current session as..." saves whatever account is currently logged in under a new name.
-- Remove accounts without touching the terminal.
+- Left-click the tray icon to open a frosted-glass popup listing every saved account, with the active one marked by a green dot.
+- Click an account to switch to it and launch a terminal with `claude` running under that account's config.
+- "+ Add current session" saves whatever account is currently logged in under a new name.
+- Remove an account inline from the popup, no terminal needed.
+- Right-click the tray icon for a native fallback menu (open switcher, add session, quit).
+
+The UI uses the same glassmorphism + claymorphism design as the landing page — frosted surfaces, soft pastel gradient-mesh background, and puffy clay buttons.
 
 ## Develop
 

@@ -12,4 +12,5 @@ Thumbs.db
 *.exe
 *.dmg
 *.AppImage
+*.tgz
 coverage/

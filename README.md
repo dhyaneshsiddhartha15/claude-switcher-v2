@@ -27,6 +27,22 @@ This is an npm-workspaces monorepo with three pieces:
 | [`packages/desktop`](packages/desktop) | An optional Electron system tray app for switching accounts without the terminal. |
 | [`apps/landing`](apps/landing) | The Next.js marketing/landing page. |
 
+## ClaudeSwitch vs. claude-swap
+
+Both tools solve the same core problem — juggling more than one Claude Code account — by pointing `CLAUDE_CONFIG_DIR` at per-account folders. Here's how they compare:
+
+| | **ClaudeSwitch** | claude-swap |
+| --- | --- | --- |
+| CLI (`add` / `use` / `list` / `remove`) | ✅ | ✅ |
+| System tray / GUI app | ✅ Electron tray with a glass popup switcher | ❌ CLI only |
+| Landing page & docs site | ✅ | ❌ |
+| Cross-platform | ✅ Windows, macOS, Linux | ✅ |
+| Launches Claude Code for you on switch | ✅ (`use` spawns `claude`) | ⚠️ prints an env var to eval |
+| Credentials stay 100% local | ✅ | ✅ |
+| License | MIT | MIT |
+
+If you only ever live in the terminal, either works. ClaudeSwitch adds the optional tray app, one-command relaunch, and a polished install experience on top of the same local, no-cloud model.
+
 ## CLI usage
 
 ```bash

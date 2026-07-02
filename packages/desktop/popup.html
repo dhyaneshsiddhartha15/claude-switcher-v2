@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>ClaudeSwitch</title>
+    <style>
+      /* Glassmorphism + Claymorphism — matches the landing page aesthetic. */
+      :root {
+        --purple: #a78bfa;
+        --sky: #7dd3fc;
+        --mint: #6ee7b7;
+        --pink: #f9a8d4;
+        --text: #f3ecff;
+        --text-muted: #c3b6e8;
+        --glass-bg: rgba(38, 30, 68, 0.55);
+        --glass-strong: rgba(52, 42, 92, 0.72);
+        --glass-border: rgba(255, 255, 255, 0.18);
+        --clay-shadow: 0 8px 20px rgba(0, 0, 0, 0.35),
+          inset 0 1px 0 rgba(255, 255, 255, 0.25);
+      }
+
+      * {
+        box-sizing: border-box;
+        user-select: none;
+        -webkit-user-select: none;
+      }
+
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+        font-family: -apple-system, 'Segoe UI', Roboto, sans-serif;
+        color: var(--text);
+        background: transparent;
+        overflow: hidden;
+      }
+
+      /* The whole popup is one frosted glass card. */
+      .shell {
+        position: relative;
+        height: 100vh;
+        margin: 6px;
+        border-radius: 26px;
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        background: var(--glass-bg);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+        border: 1px solid var(--glass-border);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45),
+          inset 0 1px 0 rgba(255, 255, 255, 0.22);
+        overflow: hidden;
+      }
+
+      /* Soft gradient-mesh blobs behind the glass. */
+      .shell::before {
+        content: '';
+        position: absolute;
+        inset: -40%;
+        z-index: -1;
+        background:
+          radial-gradient(40% 40% at 20% 15%, var(--purple), transparent 60%),
+          radial-gradient(40% 40% at 85% 20%, var(--sky), transparent 60%),
+          radial-gradient(45% 45% at 75% 90%, var(--pink), transparent 60%),
+          radial-gradient(40% 40% at 15% 85%, var(--mint), transparent 60%);
+        filter: blur(30px);
+        opacity: 0.5;
+      }
+
+      header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 2px 4px 14px;
+      }
+
+      .brand-dot {
+        width: 13px;
+        height: 13px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--purple), var(--sky));
+        box-shadow: 0 2px 8px rgba(124, 92, 255, 0.6),
+          inset 0 1px 0 rgba(255, 255, 255, 0.6);
+      }
+
+      header h1 {
+        font-size: 15px;
+        font-weight: 800;
+        margin: 0;
+        letter-spacing: -0.01em;
+        flex: 1;
+      }
+
+      .icon-btn {
+        border: 1px solid var(--glass-border);
+        background: var(--glass-strong);
+        color: var(--text);
+        width: 26px;
+        height: 26px;
+        border-radius: 9px;
+        font-size: 14px;
+        line-height: 1;
+        cursor: pointer;
+        box-shadow: var(--clay-shadow);
+      }
+
+      .list {
+        flex: 1;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        padding: 2px;
+      }
+
+      .list::-webkit-scrollbar {
+        width: 6px;
+      }
+      .list::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 6px;
+      }
+
+      .account {
+        display: flex;
+        align-items: center;
+        gap: 11px;
+        padding: 12px 14px;
+        border-radius: 18px;
+        background: var(--glass-strong);
+        border: 1px solid var(--glass-border);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18);
+        cursor: pointer;
+        transition: transform 0.12s ease, box-shadow 0.12s ease;
+      }
+
+      .account:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.28),
+          inset 0 1px 0 rgba(255, 255, 255, 0.3);
+      }
+
+      .account:active {
+        transform: translateY(1px) scale(0.99);
+      }
+
+      .dot {
+        width: 11px;
+        height: 11px;
+        border-radius: 50%;
+        flex: 0 0 auto;
+        background: rgba(255, 255, 255, 0.2);
+      }
+
+      .account.active .dot {
+        background: var(--mint);
+        box-shadow: 0 0 0 3px rgba(110, 231, 183, 0.25),
+          0 0 10px rgba(110, 231, 183, 0.7);
+      }
+
+      .account .name {
+        flex: 1;
+        font-size: 14px;
+        font-weight: 600;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .account .active-tag {
+        font-size: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        color: var(--mint);
+      }
+
+      .remove {
+        border: none;
+        background: transparent;
+        color: var(--text-muted);
+        font-size: 15px;
+        cursor: pointer;
+        opacity: 0;
+        padding: 2px 4px;
+        border-radius: 8px;
+        transition: opacity 0.12s;
+      }
+
+      .account:hover .remove {
+        opacity: 0.75;
+      }
+      .remove:hover {
+        opacity: 1;
+        color: var(--pink);
+      }
+
+      .empty {
+        margin: auto;
+        text-align: center;
+        color: var(--text-muted);
+        font-size: 13px;
+        line-height: 1.5;
+        padding: 24px;
+      }
+
+      footer {
+        padding: 14px 4px 2px;
+      }
+
+      .add-btn {
+        width: 100%;
+        padding: 12px;
+        border-radius: 16px;
+        border: 1px solid var(--glass-border);
+        color: #fff;
+        font-size: 14px;
+        font-weight: 700;
+        cursor: pointer;
+        background: linear-gradient(135deg, var(--purple), #818cf8 55%, var(--sky));
+        box-shadow: var(--clay-shadow);
+        transition: transform 0.12s ease;
+      }
+      .add-btn:hover {
+        transform: translateY(-1px);
+      }
+      .add-btn:active {
+        transform: translateY(1px) scale(0.98);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="shell">
+      <header>
+        <span class="brand-dot"></span>
+        <h1>ClaudeSwitch</h1>
+        <button class="icon-btn" id="close" title="Close">✕</button>
+      </header>
+
+      <div class="list" id="list"></div>
+
+      <footer>
+        <button class="add-btn" id="add">+ Add current session</button>
+      </footer>
+    </div>
+
+    <script>
+      const listEl = document.getElementById('list');
+
+      function render(data) {
+        listEl.innerHTML = '';
+        if (!data.accounts.length) {
+          const empty = document.createElement('div');
+          empty.className = 'empty';
+          empty.innerHTML =
+            'No accounts saved yet.<br />Log in with <b>claude</b>, then add this session below.';
+          listEl.appendChild(empty);
+          return;
+        }
+
+        for (const acc of data.accounts) {
+          const row = document.createElement('div');
+          row.className = 'account' + (acc.active ? ' active' : '');
+          row.title = 'Switch to ' + acc.name;
+
+          const dot = document.createElement('span');
+          dot.className = 'dot';
+
+          const name = document.createElement('span');
+          name.className = 'name';
+          name.textContent = acc.name;
+
+          row.appendChild(dot);
+          row.appendChild(name);
+
+          if (acc.active) {
+            const tag = document.createElement('span');
+            tag.className = 'active-tag';
+            tag.textContent = 'active';
+            row.appendChild(tag);
+          }
+
+          const remove = document.createElement('button');
+          remove.className = 'remove';
+          remove.textContent = '🗑';
+          remove.title = 'Remove ' + acc.name;
+          remove.addEventListener('click', async (e) => {
+            e.stopPropagation();
+            await window.claudeswitch.removeAccount(acc.name);
+            refresh();
+          });
+          row.appendChild(remove);
+
+          row.addEventListener('click', () => window.claudeswitch.switchAccount(acc.name));
+          listEl.appendChild(row);
+        }
+      }
+
+      async function refresh() {
+        render(await window.claudeswitch.listAccounts());
+      }
+
+      document.getElementById('add').addEventListener('click', () =>
+        window.claudeswitch.openAddPrompt()
+      );
+      document.getElementById('close').addEventListener('click', () =>
+        window.claudeswitch.hidePopup()
+      );
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') window.claudeswitch.hidePopup();
+      });
+
+      window.claudeswitch.onRefresh(refresh);
+      refresh();
+    </script>
+  </body>
+</html>
