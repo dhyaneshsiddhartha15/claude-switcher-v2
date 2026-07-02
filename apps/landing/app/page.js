@@ -1,8 +1,9 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
-const REPO_URL = 'https://github.com/claudeswitch/claudeswitch';
+const REPO_URL = 'https://github.com/dhyaneshsiddhartha15/claude-switcher-v2';
+const INSTALL_CMD = 'npm install -g claude-multi-account';
 
 const FEATURES = [
   {
@@ -52,24 +53,38 @@ const COMMANDS = [
   { code: 'claudeswitch remove work', desc: 'delete a saved account' },
 ];
 
+function CopyButton({ text, label = 'Copy' }) {
+  const [copied, setCopied] = useState(false);
+
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(text);
+    } catch {
+      // Fallback for older/non-secure contexts
+      const el = document.createElement('textarea');
+      el.value = text;
+      document.body.appendChild(el);
+      el.select();
+      document.execCommand('copy');
+      document.body.removeChild(el);
+    }
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1500);
+  };
+
+  return (
+    <button
+      className={`copy-btn${copied ? ' copied' : ''}`}
+      onClick={copy}
+      aria-label={`Copy: ${text}`}
+      title="Copy to clipboard"
+    >
+      {copied ? '✓ Copied' : label}
+    </button>
+  );
+}
+
 export default function Home() {
-  const [theme, setTheme] = useState('light');
-
-  useEffect(() => {
-    const stored = localStorage.getItem('cs-theme');
-    const initial =
-      stored ||
-      (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-    setTheme(initial);
-  }, []);
-
-  useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem('cs-theme', theme);
-  }, [theme]);
-
-  const toggleTheme = () => setTheme((t) => (t === 'dark' ? 'light' : 'dark'));
-
   return (
     <>
       <nav className="nav container glass">
@@ -81,14 +96,6 @@ export default function Home() {
           <a href={REPO_URL}>GitHub</a>
           <a href={`${REPO_URL}#readme`}>Docs</a>
           <a href={`${REPO_URL}/blob/main/LICENSE`}>License</a>
-          <button
-            className="theme-toggle"
-            onClick={toggleTheme}
-            aria-label="Toggle dark mode"
-            title="Toggle dark mode"
-          >
-            {theme === 'dark' ? '☀️' : '🌙'}
-          </button>
         </div>
       </nav>
 
@@ -107,7 +114,10 @@ export default function Home() {
             Read the docs
           </a>
         </div>
-        <div className="install-box glass">$ npm install -g claude-multi-account</div>
+        <div className="install-box glass">
+          <code>$ {INSTALL_CMD}</code>
+          <CopyButton text={INSTALL_CMD} />
+        </div>
       </section>
 
       <section className="features container">
@@ -131,7 +141,10 @@ export default function Home() {
               <div className="step-number">{i + 1}</div>
               <h3>{s.title}</h3>
               <p>{s.body}</p>
-              <code>{s.code}</code>
+              <div className="step-code">
+                <code>{s.code}</code>
+                <CopyButton text={s.code} label="⧉" />
+              </div>
             </div>
           ))}
         </div>
@@ -146,7 +159,8 @@ export default function Home() {
           {COMMANDS.map((c) => (
             <div className="command-row" key={c.code}>
               <code>{c.code}</code>
-              <span>{c.desc}</span>
+              <span className="desc">{c.desc}</span>
+              <CopyButton text={c.code} label="⧉" />
             </div>
           ))}
         </div>
@@ -154,7 +168,7 @@ export default function Home() {
 
       <footer className="footer container glass">
         MIT licensed. Not affiliated with Anthropic. ·{' '}
-        <a href={REPO_URL}>github.com/claudeswitch/claudeswitch</a>
+        <a href={REPO_URL}>github.com/dhyaneshsiddhartha15/claude-switcher-v2</a>
       </footer>
     </>
   );

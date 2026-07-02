@@ -1,43 +1,28 @@
-/* ClaudeSwitch — Glassmorphism + Claymorphism design system
-   Soft purples, lavenders, sky blues, mint greens. Frosted glass surfaces,
-   puffy clay buttons, animated gradient-mesh background. Light + dark mode. */
+/* ClaudeSwitch — Glassmorphism + Claymorphism, dark mode only.
+   Orange / white / green theme. Frosted glass surfaces, puffy clay
+   buttons, animated gradient-mesh background. */
 
 :root {
-  /* Pastel palette */
-  --purple: #a78bfa;
-  --lavender: #c4b5fd;
-  --sky: #7dd3fc;
-  --mint: #6ee7b7;
-  --pink: #f9a8d4;
+  /* Theme colors */
+  --orange: #f97316;
+  --orange-light: #fb923c;
+  --amber: #fbbf24;
+  --green: #22c55e;
+  --green-light: #4ade80;
 
-  /* Light theme surfaces */
-  --page-bg: #eef1ff;
-  --text: #2e1065; /* deep purple */
-  --text-muted: #6b5b95;
-  --glass-bg: rgba(255, 255, 255, 0.5);
-  --glass-bg-strong: rgba(255, 255, 255, 0.65);
-  --glass-border: rgba(255, 255, 255, 0.55);
-  --card-shadow: 0 10px 30px rgba(90, 70, 160, 0.18);
-  --card-inset: inset 0 1px 0 rgba(255, 255, 255, 0.7),
-    inset 0 -8px 20px rgba(167, 139, 250, 0.08);
-  --clay-shadow: 0 8px 20px rgba(0, 0, 0, 0.15),
+  /* Dark surfaces */
+  --page-bg: #15100b;
+  --text: #fdf6ef; /* warm white */
+  --text-muted: #c3b4a5;
+  --glass-bg: rgba(255, 255, 255, 0.06);
+  --glass-bg-strong: rgba(255, 255, 255, 0.12);
+  --glass-border: rgba(255, 255, 255, 0.18);
+  --card-shadow: 0 10px 34px rgba(0, 0, 0, 0.5);
+  --card-inset: inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    inset 0 -8px 20px rgba(249, 115, 22, 0.08);
+  --clay-shadow: 0 8px 20px rgba(0, 0, 0, 0.35),
     inset 0 1px 0 rgba(255, 255, 255, 0.4);
-  --code-color: #6d28d9;
-}
-
-[data-theme='dark'] {
-  --page-bg: #0e0b1a;
-  --text: #f3ecff;
-  --text-muted: #b8a9dd;
-  --glass-bg: rgba(30, 24, 56, 0.5);
-  --glass-bg-strong: rgba(38, 30, 68, 0.66);
-  --glass-border: rgba(255, 255, 255, 0.16);
-  --card-shadow: 0 10px 34px rgba(0, 0, 0, 0.45);
-  --card-inset: inset 0 1px 0 rgba(255, 255, 255, 0.14),
-    inset 0 -8px 20px rgba(124, 92, 255, 0.14);
-  --clay-shadow: 0 8px 20px rgba(0, 0, 0, 0.4),
-    inset 0 1px 0 rgba(255, 255, 255, 0.18);
-  --code-color: #c4b5fd;
+  --code-color: #fdba74;
 }
 
 * {
@@ -53,27 +38,22 @@ body {
   background: var(--page-bg);
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   -webkit-font-smoothing: antialiased;
-  transition: background 0.4s ease, color 0.4s ease;
 }
 
-/* Animated gradient-mesh background — soft floating blobs */
+/* Animated gradient-mesh background — orange + green + amber blobs */
 body::before {
   content: '';
   position: fixed;
   inset: -20vmax;
   z-index: -1;
   background:
-    radial-gradient(38vmax 38vmax at 15% 20%, var(--purple), transparent 60%),
-    radial-gradient(34vmax 34vmax at 85% 15%, var(--sky), transparent 60%),
-    radial-gradient(40vmax 40vmax at 75% 85%, var(--pink), transparent 60%),
-    radial-gradient(32vmax 32vmax at 20% 80%, var(--mint), transparent 60%);
-  filter: blur(60px) saturate(1.1);
-  opacity: 0.55;
+    radial-gradient(38vmax 38vmax at 15% 20%, var(--orange), transparent 60%),
+    radial-gradient(34vmax 34vmax at 85% 15%, var(--green), transparent 60%),
+    radial-gradient(40vmax 40vmax at 75% 85%, var(--amber), transparent 60%),
+    radial-gradient(32vmax 32vmax at 20% 80%, var(--green-light), transparent 60%);
+  filter: blur(70px) saturate(1.1);
+  opacity: 0.38;
   animation: meshFloat 22s ease-in-out infinite alternate;
-}
-
-[data-theme='dark'] body::before {
-  opacity: 0.4;
 }
 
 @keyframes meshFloat {
@@ -138,8 +118,8 @@ a {
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--purple), var(--sky));
-  box-shadow: 0 2px 8px rgba(124, 92, 255, 0.5),
+  background: linear-gradient(135deg, var(--orange), var(--green));
+  box-shadow: 0 2px 8px rgba(249, 115, 22, 0.5),
     inset 0 1px 0 rgba(255, 255, 255, 0.6);
 }
 
@@ -164,27 +144,6 @@ a {
   background: var(--glass-bg-strong);
 }
 
-.theme-toggle {
-  border: 1px solid var(--glass-border);
-  background: var(--glass-bg-strong);
-  color: var(--text);
-  width: 40px;
-  height: 40px;
-  border-radius: 14px;
-  font-size: 17px;
-  cursor: pointer;
-  box-shadow: var(--clay-shadow);
-  transition: transform 0.15s ease;
-}
-
-.theme-toggle:hover {
-  transform: translateY(-1px);
-}
-
-.theme-toggle:active {
-  transform: translateY(1px) scale(0.97);
-}
-
 /* ---------- Hero ---------- */
 .hero {
   padding: 64px 0 40px;
@@ -192,18 +151,15 @@ a {
 }
 
 .hero h1 {
-  font-size: clamp(34px, 6vw, 56px);
-  line-height: 1.08;
-  margin: 0 0 18px;
-  letter-spacing: -0.03em;
-  background: linear-gradient(120deg, var(--text), #7c3aed 60%, #0ea5e9);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-[data-theme='dark'] .hero h1 {
-  background: linear-gradient(120deg, #ffffff, var(--lavender) 55%, var(--sky));
+  /* Solid, high-contrast fill with an orange->green gradient. Generous
+     line-height + padding so descenders (the "g" in "logging") are never
+     clipped and never collide with the paragraph below. */
+  font-size: clamp(32px, 5.6vw, 54px);
+  line-height: 1.22;
+  margin: 0 0 26px;
+  padding-bottom: 0.12em;
+  letter-spacing: -0.02em;
+  background: linear-gradient(120deg, #ffffff 10%, var(--orange-light) 55%, var(--green-light));
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -248,7 +204,7 @@ a {
 
 .btn-primary {
   color: #fff;
-  background: linear-gradient(135deg, var(--purple), #818cf8 55%, var(--sky));
+  background: linear-gradient(135deg, var(--orange), var(--orange-light));
 }
 
 .btn-secondary {
@@ -258,16 +214,51 @@ a {
   -webkit-backdrop-filter: blur(20px);
 }
 
+/* ---------- Copy-to-clipboard ---------- */
+.copy-btn {
+  flex: 0 0 auto;
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg-strong);
+  color: var(--text);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 7px 12px;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: var(--clay-shadow);
+  transition: transform 0.12s ease, color 0.2s, border-color 0.2s;
+  white-space: nowrap;
+}
+
+.copy-btn:hover {
+  transform: translateY(-1px);
+}
+
+.copy-btn:active {
+  transform: translateY(1px) scale(0.97);
+}
+
+.copy-btn.copied {
+  color: var(--green-light);
+  border-color: var(--green);
+}
+
 .install-box {
   margin: 36px auto 0;
-  max-width: 480px;
+  max-width: 520px;
   border-radius: 20px;
-  padding: 16px 20px;
+  padding: 14px 14px 14px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.install-box code {
+  flex: 1;
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   font-size: 15px;
   text-align: left;
   color: var(--code-color);
-  border-radius: 20px;
 }
 
 /* ---------- Section headings ---------- */
@@ -347,7 +338,7 @@ a {
   font-size: 20px;
   color: #fff;
   margin-bottom: 16px;
-  background: linear-gradient(135deg, var(--purple), var(--sky));
+  background: linear-gradient(135deg, var(--orange), var(--green));
   box-shadow: var(--clay-shadow);
 }
 
@@ -357,21 +348,28 @@ a {
 }
 
 .step p {
-  margin: 0 0 12px;
+  margin: 0 0 14px;
   font-size: 14.5px;
   color: var(--text-muted);
   line-height: 1.55;
 }
 
-.step code {
-  display: inline-block;
+.step-code {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.step-code code {
+  flex: 1;
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   font-size: 13px;
   color: var(--code-color);
   background: var(--glass-bg-strong);
   border: 1px solid var(--glass-border);
   border-radius: 12px;
-  padding: 7px 11px;
+  padding: 8px 11px;
+  overflow-x: auto;
 }
 
 /* ---------- Commands ---------- */
@@ -387,9 +385,9 @@ a {
 
 .command-row {
   display: flex;
-  gap: 20px;
+  gap: 16px;
   align-items: center;
-  padding: 16px 18px;
+  padding: 14px 16px;
   border-radius: 16px;
   font-size: 15px;
   transition: background 0.2s;
@@ -406,7 +404,8 @@ a {
   font-weight: 600;
 }
 
-.command-row span {
+.command-row .desc {
+  flex: 1;
   color: var(--text-muted);
 }
 
@@ -441,9 +440,12 @@ a {
   .command-row {
     flex-direction: column;
     align-items: flex-start;
-    gap: 6px;
+    gap: 10px;
   }
   .command-row code {
     flex: none;
+  }
+  .command-row .desc {
+    width: 100%;
   }
 }
