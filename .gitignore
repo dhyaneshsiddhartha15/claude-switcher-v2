@@ -1,0 +1,15 @@
+node_modules/
+dist/
+build/
+.next/
+out/
+*.log
+npm-debug.log*
+.DS_Store
+Thumbs.db
+.env
+.env.local
+*.exe
+*.dmg
+*.AppImage
+coverage/

@@ -1,0 +1,48 @@
+{
+  "name": "claudeswitch",
+  "version": "0.1.0",
+  "description": "Switch between multiple Claude Code accounts instantly, without logging out or re-entering an OTP.",
+  "keywords": [
+    "claude",
+    "claude-code",
+    "cli",
+    "account-switcher",
+    "anthropic"
+  ],
+  "license": "MIT",
+  "author": "ClaudeSwitch Contributors",
+  "homepage": "https://github.com/claudeswitch/claudeswitch#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/claudeswitch/claudeswitch.git",
+    "directory": "packages/cli"
+  },
+  "bugs": {
+    "url": "https://github.com/claudeswitch/claudeswitch/issues"
+  },
+  "type": "commonjs",
+  "main": "src/index.js",
+  "bin": {
+    "claudeswitch": "./bin/claudeswitch.js",
+    "cswitch": "./bin/claudeswitch.js"
+  },
+  "files": [
+    "bin",
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "node bin/claudeswitch.js",
+    "test": "node --test test/"
+  },
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "commander": "^12.1.0",
+    "fs-extra": "^11.2.0",
+    "prompts": "^2.4.2"
+  }
+}

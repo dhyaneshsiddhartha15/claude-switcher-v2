@@ -1,0 +1,30 @@
+{
+  "name": "claudeswitch-desktop",
+  "version": "0.1.0",
+  "private": true,
+  "description": "System tray app for switching between Claude Code accounts saved with claudeswitch.",
+  "license": "MIT",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder"
+  },
+  "dependencies": {
+    "claudeswitch": "^0.1.0"
+  },
+  "devDependencies": {
+    "electron": "^31.0.0",
+    "electron-builder": "^24.13.3"
+  },
+  "build": {
+    "appId": "com.claudeswitch.desktop",
+    "productName": "ClaudeSwitch",
+    "files": [
+      "main.js",
+      "assets/**/*"
+    ],
+    "mac": { "category": "public.app-category.developer-tools" },
+    "win": { "target": "nsis" },
+    "linux": { "target": "AppImage" }
+  }
+}

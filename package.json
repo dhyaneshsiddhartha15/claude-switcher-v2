@@ -1,0 +1,18 @@
+{
+  "name": "claudeswitch-monorepo",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Monorepo for ClaudeSwitch — a multi-account switcher for Claude Code",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "cli": "npm run start --workspace=packages/cli",
+    "desktop": "npm run start --workspace=packages/desktop",
+    "landing": "npm run dev --workspace=apps/landing",
+    "lint": "npm run lint --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present"
+  },
+  "license": "MIT"
+}
