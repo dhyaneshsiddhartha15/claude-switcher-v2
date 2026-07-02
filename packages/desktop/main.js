@@ -2,7 +2,7 @@ const path = require('path');
 const { spawn } = require('child_process');
 const fs = require('fs');
 const { app, Tray, Menu, BrowserWindow, ipcMain, dialog, nativeImage, screen } = require('electron');
-const { config } = require('claudeswitch');
+const { config } = require('claude-multi-account');
 
 let tray = null;
 let popupWindow = null;

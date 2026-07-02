@@ -107,7 +107,7 @@ export default function Home() {
             Read the docs
           </a>
         </div>
-        <div className="install-box glass">$ npm install -g claudeswitch</div>
+        <div className="install-box glass">$ npm install -g claude-multi-account</div>
       </section>
 
       <section className="features container">

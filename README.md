@@ -3,7 +3,7 @@
 An open-source multi-account switcher for [Claude Code](https://docs.claude.com/claude-code). Save multiple accounts — personal, work, a friend's — and switch between them instantly, without logging out or re-entering an OTP.
 
 ```bash
-npm install -g claudeswitch
+npm install -g claude-multi-account
 
 claude login && claudeswitch add --name personal
 claude login && claudeswitch add --name work

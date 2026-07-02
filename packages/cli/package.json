@@ -1,7 +1,7 @@
 {
-  "name": "claudeswitch",
+  "name": "claude-multi-account",
   "version": "0.1.0",
-  "description": "Switch between multiple Claude Code accounts instantly, without logging out or re-entering an OTP.",
+  "description": "ClaudeSwitch — switch between multiple Claude Code accounts instantly, without logging out or re-entering an OTP.",
   "keywords": [
     "claude",
     "claude-code",
@@ -11,14 +11,14 @@
   ],
   "license": "MIT",
   "author": "ClaudeSwitch Contributors",
-  "homepage": "https://github.com/claudeswitch/claudeswitch#readme",
+  "homepage": "https://github.com/dhyaneshsiddhartha15/claude-switcher-v2#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/claudeswitch/claudeswitch.git",
+    "url": "git+https://github.com/dhyaneshsiddhartha15/claude-switcher-v2.git",
     "directory": "packages/cli"
   },
   "bugs": {
-    "url": "https://github.com/claudeswitch/claudeswitch/issues"
+    "url": "https://github.com/dhyaneshsiddhartha15/claude-switcher-v2/issues"
   },
   "type": "commonjs",
   "main": "src/index.js",

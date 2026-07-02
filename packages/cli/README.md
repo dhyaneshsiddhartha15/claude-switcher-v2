@@ -11,8 +11,10 @@ Everything stays on your machine — `claudeswitch` never talks to a network of 
 ## Install
 
 ```bash
-npm install -g claudeswitch
+npm install -g claude-multi-account
 ```
+
+The npm package is named `claude-multi-account`, but it installs the `claudeswitch` command (with a `cswitch` alias).
 
 ## Usage
 
